@@ -43,13 +43,28 @@ The CDI producer method performs the different steps in a similar way as when yo
 
 # Lazily started StorageManager
 
-Todo
+Since all CDI beans are only instantiated at the time they are accessed for the first time, the _StorageManager_ defined through the CDI integration is only started when the first user request is handled.
+
+If you want to initialize the _StorageManager_ early to have for example no performance impact on the first request, you can use a similar class as
+
+```
+@ApplicationScoped
+public class StartupInitializedBean {
+
+    @ApplicationScoped
+    private StorageManager storageManager;
+
+    public void init( @Observes @Initialized( ApplicationScoped.class ) Object init ) {
+        storageManager.isRunning();  // Make sure we trigger the actual bean as we might have proxies.
+    }
+}
+```
 
 # Proposed changes
 
 The following is the list of proposed changes to make the code (of your application) better structured and integration with MicroStream easier.
 
-The examples require the code from ???TODO??? to compile and work.
+The examples require the code from https://github.com/microstream-one/microstream/pull/398 to compile and work.
 
 # Foundation customizer
 
@@ -90,3 +105,23 @@ public class RootPreparation implements StorageManagerInitializer {
 
 The addition of these 2 interfaces and using them when the CDI Bean for the _StorageManager_ is created, makes the code better structured as each class has its own purpose.
 It also allows to make use of all the MicroProfile Config sources that your runtime supports to define the configuration of the MicroStream engine.
+
+# Root CDI Bean
+
+See directory _root-bean_.
+
+Within the _Service_ beans, we accessed the Root object through the _StorageManager_ bean.  Although this works, it is a bit cumbersome to always retrieve the root in that way.
+
+With this updated version of the integration, the Root object can also be turned into a CDI Bean by annotation it with `@Storage`.
+
+```
+@Storage
+public class Root {
+
+    @Inject
+    private transient StorageManager storageManager;
+```
+
+The _storage_ annotation is a custom annotation that is both a `@Component` and `@Qualifier`.  That way it can be detected by the Spring Boot integration and made sure that it is a Spring Bean but also correctly registered with the Storage manager.
+
+Since it is a Spring Bean, you can also inject other beans into it, like the _StorageBean_. Since the integration is responsible for creating the Root object instance if needed (through a special factory method) using standard Java constructs, only Field and Setter injection is allowed (and not constructor injection)
