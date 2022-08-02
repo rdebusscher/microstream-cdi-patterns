@@ -1,0 +1,44 @@
+java -jar payara-micro.jar  /Users/rubus/code/microstream/microstream-cdi-patterns/foundation-customizer/target/customize.war
+
+
+# List all users
+curl  'http://localhost:8080/customize/user/'
+
+# List non-existing  user -> status 404
+curl -v 'http://localhost:8080/customize/user/abc'
+
+# List user by email.
+curl  'http://localhost:8080/customize/user/by/jane.doe@acme.org'
+
+# Add user
+curl -X POST 'http://localhost:8080/customize/user/' \
+--header 'Content-Type: application/json' \
+--data-raw '{"name": "Rudy", "email": "rudy@microstream.one"}'
+
+# -> note the id of this added user and use it in the other commands of this file
+
+
+# List all books
+curl  'http://localhost:8080/customize/book/'
+
+# List books of user (use id of added user)
+curl  'http://localhost:8080/customize/user/59965e81-b1e9-46f0-b96a-c41c3092db13/book'
+
+# Add book to user (use id of added user)
+curl -X POST 'http://localhost:8080/customize/user/59965e81-b1e9-46f0-b96a-c41c3092db13/book/9780141321097'
+
+# List again
+curl  'http://localhost:8080/customize/user/59965e81-b1e9-46f0-b96a-c41c3092db13/book'
+
+# Update user
+
+curl -X PATCH 'http://localhost:8080/customize/user/59965e81-b1e9-46f0-b96a-c41c3092db13' \
+--header 'Content-Type: application/json' \
+--data-raw '{"email": "r.debusscher@microstream.one"}'
+
+
+## Stop and start application
+# Are data stored?
+
+curl  'http://localhost:8080/customize/user/'
+curl  'http://localhost:8080/customize/user/59965e81-b1e9-46f0-b96a-c41c3092db13/book'

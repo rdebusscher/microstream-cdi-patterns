@@ -40,3 +40,53 @@ Without the integration code, see directory _plain_.
 Without any integration code, you need to expose a CDI bean for the `StorageManager`. This is performed by the `DataConfiguration` class.  The class is injected with the configuration value `one.microstream.config` which will give us the location of the MicroStream configuration file. It also has a reference to the class that performs the initialisation of books and users when the storage is started for the very first time.
 
 The CDI producer method performs the different steps in a similar way as when you use MicroStream in a Java SE program.  It creates the `EmbeddedStorageFoundation` with the configuration file, it customizes the Foundation, creates the _StorageManager_, and initializes with data if needed.
+
+# Lazily started StorageManager
+
+Todo
+
+# Proposed changes
+
+The following is the list of proposed changes to make the code (of your application) better structured and integration with MicroStream easier.
+
+The examples require the code from ???TODO??? to compile and work.
+
+# Foundation customizer
+
+See directory _foundation-customizer_
+
+The new version of the integration has implemented the following steps so that you can use a _StorageManager_ based CDI bean. (and as the developer keep full control of customizations and initializations)
+
+- Build `EmbeddedStorageFoundation` from the MicroProfile Configuration values
+- Allow customizations by the developer `EmbeddedStorageFoundation` using `EmbeddedStorageFoundationCustomizer`
+- Integration creates the `StorageManager`
+- Allow initialization of the `StorageManager` (like adding initial data when storage is created at the first run) through `StorageManagerInitializer`.
+
+The code within the `DataConfiguration` of the _plain_ example becomes now better structured and results in the classes `FoundationCustomizer` and `RootPreparation`.
+
+```
+@ApplicationScoped
+public class FoundationCustomizer implements EmbeddedStorageFoundationCustomizer {
+
+    @Override
+    public void customize(EmbeddedStorageFoundation embeddedStorageFoundation) {
+      // Do customization
+    }
+}
+```
+
+```
+@ApplicationScoped
+public class RootPreparation implements StorageManagerInitializer {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(RootPreparation.class);
+
+    @Override
+    public void initialize(StorageManager storageManager) {
+       // Check if Root is available (and assign if needed) and add initial data if needed.
+    }
+}    
+```
+
+The addition of these 2 interfaces and using them when the CDI Bean for the _StorageManager_ is created, makes the code better structured as each class has its own purpose.
+It also allows to make use of all the MicroProfile Config sources that your runtime supports to define the configuration of the MicroStream engine.
