@@ -60,6 +60,10 @@ public class StartupInitializedBean {
 }
 ```
 
+Although the MicroProfile Config specification describes that the conversion should be performed during the deployment of the application to determine the validity of the configuration, the _StorageManager_ is not created at deployment time.  Only the configuration properties are read and an `EmbeddedStorageFoundation` is created, but the actual instantiation of the _StorageManager_ is delayed until it is actually used by the application by using a Proxy.
+
+See _MicroProfile Config converter_ section.
+
 # Proposed changes
 
 The following is the list of proposed changes to make the code (of your application) better structured and integration with MicroStream easier.
@@ -125,3 +129,24 @@ public class Root {
 The _storage_ annotation is a custom annotation that is both a `@Component` and `@Qualifier`.  That way it can be detected by the Spring Boot integration and made sure that it is a Spring Bean but also correctly registered with the Storage manager.
 
 Since it is a Spring Bean, you can also inject other beans into it, like the _StorageBean_. Since the integration is responsible for creating the Root object instance if needed (through a special factory method) using standard Java constructs, only Field and Setter injection is allowed (and not constructor injection)
+
+# Using MicroProfile Config converter
+
+See directory _microprofile_.
+
+The CDI integration also has a MicroProfile Config converter available and can be used as in the following example.
+
+```
+@Inject
+@ConfigProperty(name = "one.microstream.config")
+protected StorageManager storageManager;
+```
+
+The _one.microstream.config_ is resolved and is expected to point to a file that contains the MicroStream configuration values (without the prefix, for a description see [User documentation](https://docs.microstream.one/manual/storage/configuration/properties.html) page.
+
+The usage of this converter also supports the _customizer_ and _initializer_  we mentioned already.
+
+The usage of this converter can be useful in the following scenarios.
+
+- Separate the configuration of the _StorageManager_ from the other configuration values of your application. Only the name of the file is needed within a Microprofile Config Source.
+- Have the ability to configure multiple _StorageManager_s within 1 application.
