@@ -1,0 +1,8 @@
+java -jar payara-micro.jar /Users/rubus/code/microstream/microstream-cdi-patterns/multiple/target/multiple.war
+
+
+# List all products from then 'red' database
+curl  'http://localhost:8080/multiple/products/'
+
+# List all names from the 'green' database
+curl  'http://localhost:8080/multiple/names/'

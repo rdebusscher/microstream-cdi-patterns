@@ -149,4 +149,41 @@ The usage of this converter also supports the _customizer_ and _initializer_  we
 The usage of this converter can be useful in the following scenarios.
 
 - Separate the configuration of the _StorageManager_ from the other configuration values of your application. Only the name of the file is needed within a Microprofile Config Source.
-- Have the ability to configure multiple _StorageManager_s within 1 application.
+- Have the ability to configure multiple _StorageManager_'s within 1 application.
+
+# Multiple Storage Managers
+
+See directory _multiple_.
+This example dies not use the library app as implemented by the other examples.
+
+Using the MicroProfile Config Converter option, you can configure multiple _StorageManager_'s within 1 Jakarta application.  The _customizer_ and _initializer_ concept is supported as mentioned and you can distinguish the different `EmbeddedStorageFoundation` and `StorageManager` with the help of the _Database_ concept of MicroStream.
+
+If you define a configuration value `database-name` within the file (properties, ini, or XML file in the appropriate format), this name is assigned to the _Foundation_ and _StorageManager_.  Within the _customize_ and _initialize_ methods, you can find out which instance you received from the integration and perform the appropriate actions.
+
+---
+database-name=red
+---
+
+And the code looks like
+
+---
+public void customize(EmbeddedStorageFoundation embeddedStorageFoundation) {
+   if ("red".equals(embeddedStorageFoundation.getDataBaseName())) {
+      customizeRedIinstance(embeddedStorageFoundation);
+   }
+   if ("green".equals(embeddedStorageFoundation.getDataBaseName())) {
+      customizeGreenIinstance(embeddedStorageFoundation);
+   }
+   ...
+}
+
+public void initialize(StorageManager storageManager) {
+   if ("red".equals(storageManager.databaseName())) {   
+      initializeRedInstance(storageManager);
+   }
+   if ("green".equals(storageManager.databaseName())) {   
+      initializeGreenInstance(storageManager);
+   }
+   ...
+}
+---  
