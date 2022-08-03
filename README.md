@@ -160,13 +160,13 @@ Using the MicroProfile Config Converter option, you can configure multiple _Stor
 
 If you define a configuration value `database-name` within the file (properties, ini, or XML file in the appropriate format), this name is assigned to the _Foundation_ and _StorageManager_.  Within the _customize_ and _initialize_ methods, you can find out which instance you received from the integration and perform the appropriate actions.
 
----
+```
 database-name=red
----
+```
 
 And the code looks like
 
----
+```
 public void customize(EmbeddedStorageFoundation embeddedStorageFoundation) {
    if ("red".equals(embeddedStorageFoundation.getDataBaseName())) {
       customizeRedIinstance(embeddedStorageFoundation);
@@ -186,4 +186,4 @@ public void initialize(StorageManager storageManager) {
    }
    ...
 }
----  
+```
