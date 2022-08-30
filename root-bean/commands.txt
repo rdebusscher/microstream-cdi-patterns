@@ -22,17 +22,17 @@ curl -X POST 'http://localhost:8080/storage/user/' \
 curl  'http://localhost:8080/storage/book/'
 
 # List books of user (use id of added user)
-curl  'http://localhost:8080/storage/user/68f148ee-d613-4d0f-9045-8ec484e57bc2/book'
+curl  'http://localhost:8080/storage/user/985ff3f0-246f-4911-89b4-1f802f2e9914/book'
 
 # Add book to user (use id of added user)
-curl -X POST 'http://localhost:8080/storage/user/68f148ee-d613-4d0f-9045-8ec484e57bc2/book/9780141321097'
+curl -X POST 'http://localhost:8080/storage/user/985ff3f0-246f-4911-89b4-1f802f2e9914/book/9780141321097'
 
 # List again
-curl  'http://localhost:8080/storage/user/68f148ee-d613-4d0f-9045-8ec484e57bc2/book'
+curl  'http://localhost:8080/storage/user/985ff3f0-246f-4911-89b4-1f802f2e9914/book'
 
 # Update user
 
-curl -X PATCH 'http://localhost:8080/storage/user/68f148ee-d613-4d0f-9045-8ec484e57bc2' \
+curl -X PATCH 'http://localhost:8080/storage/user/985ff3f0-246f-4911-89b4-1f802f2e9914' \
 --header 'Content-Type: application/json' \
 --data-raw '{"email": "r.debusscher@microstream.one"}'
 
@@ -41,4 +41,4 @@ curl -X PATCH 'http://localhost:8080/storage/user/68f148ee-d613-4d0f-9045-8ec484
 # Are data stored?
 
 curl  'http://localhost:8080/storage/user/'
-curl  'http://localhost:8080/storage/user/68f148ee-d613-4d0f-9045-8ec484e57bc2/book'
+curl  'http://localhost:8080/storage/user/985ff3f0-246f-4911-89b4-1f802f2e9914/book'

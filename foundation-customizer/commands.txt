@@ -22,17 +22,17 @@ curl -X POST 'http://localhost:8080/customize/user/' \
 curl  'http://localhost:8080/customize/book/'
 
 # List books of user (use id of added user)
-curl  'http://localhost:8080/customize/user/59965e81-b1e9-46f0-b96a-c41c3092db13/book'
+curl  'http://localhost:8080/customize/user/f8c19996-fb10-4b87-b577-0eb11fd3065f/book'
 
 # Add book to user (use id of added user)
-curl -X POST 'http://localhost:8080/customize/user/59965e81-b1e9-46f0-b96a-c41c3092db13/book/9780141321097'
+curl -X POST 'http://localhost:8080/customize/user/f8c19996-fb10-4b87-b577-0eb11fd3065f/book/9780141321097'
 
 # List again
-curl  'http://localhost:8080/customize/user/59965e81-b1e9-46f0-b96a-c41c3092db13/book'
+curl  'http://localhost:8080/customize/user/f8c19996-fb10-4b87-b577-0eb11fd3065f/book'
 
 # Update user
 
-curl -X PATCH 'http://localhost:8080/customize/user/59965e81-b1e9-46f0-b96a-c41c3092db13' \
+curl -X PATCH 'http://localhost:8080/customize/user/f8c19996-fb10-4b87-b577-0eb11fd3065f' \
 --header 'Content-Type: application/json' \
 --data-raw '{"email": "r.debusscher@microstream.one"}'
 
@@ -41,4 +41,4 @@ curl -X PATCH 'http://localhost:8080/customize/user/59965e81-b1e9-46f0-b96a-c41c
 # Are data stored?
 
 curl  'http://localhost:8080/customize/user/'
-curl  'http://localhost:8080/customize/user/59965e81-b1e9-46f0-b96a-c41c3092db13/book'
+curl  'http://localhost:8080/customize/user/f8c19996-fb10-4b87-b577-0eb11fd3065f'

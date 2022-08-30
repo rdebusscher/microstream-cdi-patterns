@@ -22,17 +22,17 @@ curl -X POST 'http://localhost:8080/microprofile/user/' \
 curl  'http://localhost:8080/microprofile/book/'
 
 # List books of user (use id of added user)
-curl  'http://localhost:8080/microprofile/user/ed2530e0-9832-4de7-95f6-e8e70590c673/book'
+curl  'http://localhost:8080/microprofile/user/280ca03b-e0ef-4187-ac71-b05e82c1d96f/book'
 
 # Add book to user (use id of added user)
-curl -X POST 'http://localhost:8080/microprofile/user/ed2530e0-9832-4de7-95f6-e8e70590c673/book/9780141321097'
+curl -X POST 'http://localhost:8080/microprofile/user/280ca03b-e0ef-4187-ac71-b05e82c1d96f/book/9780141321097'
 
 # List again
-curl  'http://localhost:8080/microprofile/user/ed2530e0-9832-4de7-95f6-e8e70590c673/book'
+curl  'http://localhost:8080/microprofile/user/280ca03b-e0ef-4187-ac71-b05e82c1d96f/book'
 
 # Update user
 
-curl -X PATCH 'http://localhost:8080/microprofile/user/ed2530e0-9832-4de7-95f6-e8e70590c673' \
+curl -X PATCH 'http://localhost:8080/microprofile/user/280ca03b-e0ef-4187-ac71-b05e82c1d96f' \
 --header 'Content-Type: application/json' \
 --data-raw '{"email": "r.debusscher@microstream.one"}'
 
@@ -41,4 +41,4 @@ curl -X PATCH 'http://localhost:8080/microprofile/user/ed2530e0-9832-4de7-95f6-e
 # Are data stored?
 
 curl  'http://localhost:8080/microprofile/user/'
-curl  'http://localhost:8080/microprofile/user/ed2530e0-9832-4de7-95f6-e8e70590c673/book'
+curl  'http://localhost:8080/microprofile/user/280ca03b-e0ef-4187-ac71-b05e82c1d96f/book'

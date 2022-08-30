@@ -22,17 +22,17 @@ curl -X POST 'http://localhost:8080/integrate/user/' \
 curl  'http://localhost:8080/integrate/book/'
 
 # List books of user (use id of added user)
-curl  'http://localhost:8080/integrate/user/0c727c4e-2aa8-4a1e-86ec-108e6e83395b/book'
+curl  'http://localhost:8080/integrate/user/bf3fde28-2227-4242-9f95-0dbad2ddfb80/book'
 
 # Add book to user (use id of added user)
-curl -X POST 'http://localhost:8080/integrate/user/0c727c4e-2aa8-4a1e-86ec-108e6e83395b/book/9780141321097'
+curl -X POST 'http://localhost:8080/integrate/user/bf3fde28-2227-4242-9f95-0dbad2ddfb80/book/9780141321097'
 
 # List again
-curl  'http://localhost:8080/integrate/user/0c727c4e-2aa8-4a1e-86ec-108e6e83395b/book'
+curl  'http://localhost:8080/integrate/user/bf3fde28-2227-4242-9f95-0dbad2ddfb80/book'
 
 # Update user
 
-curl -X PATCH 'http://localhost:8080/integrate/user/0c727c4e-2aa8-4a1e-86ec-108e6e83395b' \
+curl -X PATCH 'http://localhost:8080/integrate/user/bf3fde28-2227-4242-9f95-0dbad2ddfb80' \
 --header 'Content-Type: application/json' \
 --data-raw '{"email": "r.debusscher@microstream.one"}'
 
@@ -41,4 +41,4 @@ curl -X PATCH 'http://localhost:8080/integrate/user/0c727c4e-2aa8-4a1e-86ec-108e
 # Are data stored?
 
 curl  'http://localhost:8080/integrate/user/'
-curl  'http://localhost:8080/integrate/user/0c727c4e-2aa8-4a1e-86ec-108e6e83395b/book'
+curl  'http://localhost:8080/integrate/user/bf3fde28-2227-4242-9f95-0dbad2ddfb80/book'

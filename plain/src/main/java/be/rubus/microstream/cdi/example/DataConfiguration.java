@@ -1,6 +1,7 @@
 package be.rubus.microstream.cdi.example;
 
 import be.rubus.microstream.cdi.example.database.Root;
+import one.microstream.reflect.ClassLoaderProvider;
 import one.microstream.storage.embedded.configuration.types.EmbeddedStorageConfiguration;
 import one.microstream.storage.embedded.types.EmbeddedStorageFoundation;
 import one.microstream.storage.types.StorageManager;
