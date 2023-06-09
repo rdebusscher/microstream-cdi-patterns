@@ -21,6 +21,13 @@ curl -X POST 'http://localhost:8080/storage/user/' \
 # List all books
 curl  'http://localhost:8080/storage/book/'
 
+
+# List book with specific ISBN
+curl  'http://localhost:8080/storage/book/9780140707342'
+
+# List book with non-existing ISBN
+curl -v 'http://localhost:8080/storage/book/1234567890'
+
 # List books of user (use id of added user)
 curl  'http://localhost:8080/storage/user/985ff3f0-246f-4911-89b4-1f802f2e9914/book'
 

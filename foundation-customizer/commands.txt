@@ -21,6 +21,12 @@ curl -X POST 'http://localhost:8080/customize/user/' \
 # List all books
 curl  'http://localhost:8080/customize/book/'
 
+# List book with specific ISBN
+curl  'http://localhost:8080/customize/book/9780140707342'
+
+# List book with non-existing ISBN
+curl -v 'http://localhost:8080/customize/book/1234567890'
+
 # List books of user (use id of added user)
 curl  'http://localhost:8080/customize/user/f8c19996-fb10-4b87-b577-0eb11fd3065f/book'
 

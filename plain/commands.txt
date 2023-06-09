@@ -21,6 +21,12 @@ curl -X POST 'http://localhost:8080/integrate/user/' \
 # List all books
 curl  'http://localhost:8080/integrate/book/'
 
+# List book with specific ISBN
+curl  'http://localhost:8080/integrate/book/9780140707342'
+
+# List book with non-existing ISBN
+curl -v 'http://localhost:8080/integrate/book/1234567890'
+
 # List books of user (use id of added user)
 curl  'http://localhost:8080/integrate/user/bf3fde28-2227-4242-9f95-0dbad2ddfb80/book'
 

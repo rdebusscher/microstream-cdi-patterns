@@ -21,6 +21,12 @@ curl -X POST 'http://localhost:8080/microprofile/user/' \
 # List all books
 curl  'http://localhost:8080/microprofile/book/'
 
+# List book with specific ISBN
+curl  'http://localhost:8080/microprofile/book/9780140707342'
+
+# List book with non-existing ISBN
+curl -v 'http://localhost:8080/microprofile/book/1234567890'
+
 # List books of user (use id of added user)
 curl  'http://localhost:8080/microprofile/user/280ca03b-e0ef-4187-ac71-b05e82c1d96f/book'
 
