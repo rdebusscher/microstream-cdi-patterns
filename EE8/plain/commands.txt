@@ -1,0 +1,50 @@
+java -jar payara-micro.jar /Users/rubus/code/microstream/microstream-cdi-patterns/EE8/plain/target/integrate.war
+
+
+# List all users
+curl  'http://localhost:8080/integrate/user/'
+
+# List non-existing  user -> status 404
+curl -v 'http://localhost:8080/integrate/user/abc'
+
+# List user by email.
+curl  'http://localhost:8080/integrate/user/by/jane.doe@acme.org'
+
+# Add user
+curl -X POST 'http://localhost:8080/integrate/user/' \
+--header 'Content-Type: application/json' \
+--data-raw '{"name": "Rudy", "email": "rudy@microstream.one"}'
+
+# -> note the id of this added user and use it in the other commands of this file
+
+
+# List all books
+curl  'http://localhost:8080/integrate/book/'
+
+# List book with specific ISBN
+curl  'http://localhost:8080/integrate/book/9780140707342'
+
+# List book with non-existing ISBN
+curl -v 'http://localhost:8080/integrate/book/1234567890'
+
+# List books of user (use id of added user)
+curl  'http://localhost:8080/integrate/user/bf3fde28-2227-4242-9f95-0dbad2ddfb80/book'
+
+# Add book to user (use id of added user)
+curl -X POST 'http://localhost:8080/integrate/user/bf3fde28-2227-4242-9f95-0dbad2ddfb80/book/9780141321097'
+
+# List again
+curl  'http://localhost:8080/integrate/user/bf3fde28-2227-4242-9f95-0dbad2ddfb80/book'
+
+# Update user
+
+curl -X PATCH 'http://localhost:8080/integrate/user/bf3fde28-2227-4242-9f95-0dbad2ddfb80' \
+--header 'Content-Type: application/json' \
+--data-raw '{"email": "r.debusscher@microstream.one"}'
+
+
+## Stop and start application
+# Are data stored?
+
+curl  'http://localhost:8080/integrate/user/'
+curl  'http://localhost:8080/integrate/user/bf3fde28-2227-4242-9f95-0dbad2ddfb80/book'

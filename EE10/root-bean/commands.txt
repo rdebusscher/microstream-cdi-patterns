@@ -1,0 +1,50 @@
+java -jar payara-micro-6.jar  /Users/rubus/code/microstream/microstream-cdi-patterns/EE10/root-bean/target/storage.war
+
+
+# List all users
+curl  'http://localhost:8080/storage/user/'
+
+# List non-existing  user -> status 404
+curl -v 'http://localhost:8080/storage/user/abc'
+
+# List user by email.
+curl  'http://localhost:8080/storage/user/by/jane.doe@acme.org'
+
+# Add user
+curl -X POST 'http://localhost:8080/storage/user/' \
+--header 'Content-Type: application/json' \
+--data-raw '{"name": "Rudy", "email": "rudy@microstream.one"}'
+
+# -> note the id of this added user and use it in the other commands of this file
+
+
+# List all books
+curl  'http://localhost:8080/storage/book/'
+
+# List book with specific ISBN
+curl  'http://localhost:8080/storage/book/9780140707342'
+
+# List book with non-existing ISBN
+curl -v 'http://localhost:8080/storage/book/1234567890'
+
+# List books of user (use id of added user)
+curl  'http://localhost:8080/storage/user/985ff3f0-246f-4911-89b4-1f802f2e9914/book'
+
+# Add book to user (use id of added user)
+curl -X POST 'http://localhost:8080/storage/user/985ff3f0-246f-4911-89b4-1f802f2e9914/book/9780141321097'
+
+# List again
+curl  'http://localhost:8080/storage/user/985ff3f0-246f-4911-89b4-1f802f2e9914/book'
+
+# Update user
+
+curl -X PATCH 'http://localhost:8080/storage/user/985ff3f0-246f-4911-89b4-1f802f2e9914' \
+--header 'Content-Type: application/json' \
+--data-raw '{"email": "r.debusscher@microstream.one"}'
+
+
+## Stop and start application
+# Are data stored?
+
+curl  'http://localhost:8080/storage/user/'
+curl  'http://localhost:8080/storage/user/985ff3f0-246f-4911-89b4-1f802f2e9914/book'

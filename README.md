@@ -5,8 +5,13 @@ Patterns in using MicroStream's CDI integration
 This repository contains a few example projects that demonstrate how MicroStream and
 the MicroStream CDI/MicroProfile Config integration can be used in a project.
 
+All examples are available for Jakarta EE 8 and EE 10 and can be found in a directory that is named corresponding to these versions.
+
+The _commands.txt_ file in each project directory indicates the commands to start Payara Micro and the CURL commands to test the application.  For Jakarta EE 8, Payara Micro 5, is no longer supported as a free open-source version, and Payara Micro 6 for Jakarta EE 10 is used.
+
+
 It is not the idea to have all best practices around application development covered
-in these examples but only some patterns that can be used to work with the Object Graph that
+in these examples but only some patterns which can be used to work with the Object Graph that
 makes your database within the JVM heap (and persist data with MicroStream).  
 So aspects like security and observability are not covered but are also not affected by using MicroStream in your Jakarta application.
 
